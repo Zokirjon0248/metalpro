@@ -1,0 +1,1333 @@
+    <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetalPro - Yetakchi Metall Mahsulotlari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0e27;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 20, 45, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: #4a90ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b8c5d6;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a90ff;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4a90ff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f1429 0%, #1a1f3a 100%);
+            position: relative;
+            padding: 180px 5% 120px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            color: #b8c5d6;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: transparent;
+            color: #fff;
+        }
+
+        .search-box input::placeholder {
+            color: #b8c5d6;
+        }
+
+        .search-box button {
+            padding: 1rem 2rem;
+        }
+
+        /* About Section */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 120px 5%;
+            align-items: center;
+            background: #0f1429;
+        }
+
+        .about-content h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #b8c5d6;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .about-feature span {
+            font-size: 1.5rem;
+        }
+
+        .about-image {
+            height: 500px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500"><rect fill="%23667eea" width="600" height="500" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%); }
+            50% { transform: translateX(100%) translateY(100%); }
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 80px 5%;
+            background: #1a1f3a;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            color: #fff;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: #b8c5d6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-item h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin: 80px 0 60px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 0 5% 100px;
+            background: #0f1429;
+        }
+
+        .product-card {
+            background: #1a1f3a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23667eea" width="400" height="300" opacity="0.4"/></svg>');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-content h3 {
+            margin-bottom: 1rem;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .product-content p {
+            color: #b8c5d6;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .product-btn {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            color: #667eea;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .product-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Services */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 0 5% 100px;
+            background: #1a1f3a;
+        }
+
+        .service-card {
+            background: #0f1429;
+            color: #fff;
+            padding: 3rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-card li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #b8c5d6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-card li:last-child {
+            border-bottom: none;
+        }
+
+        .service-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 100px 5%;
+            margin: 80px 5%;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: #fff;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Contact */
+        .contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 100px 5%;
+            background: #0f1429;
+        }
+
+        .contact-form {
+            background: #1a1f3a;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-form h2 {
+            color: #fff;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b8c5d6;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            color: #fff;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .contact-info p {
+            color: #b8c5d6;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .info-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: #050812;
+            color: #fff;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #b8c5d6;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #b8c5d6;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: #b8c5d6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .about-section,
+            .contact {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(15, 20, 45, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .hero {
+                padding: 140px 5% 80px;
+            }
+
+            .about-section,
+            .contact {
+                grid-template-columns: 1fr;
+                padding: 60px 5%;
+            }
+
+            .about-image {
+                height: 350px;
+                order: -1;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .products,
+            .services,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta {
+                margin: 40px 5%;
+                padding: 60px 5%;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                width: 100%;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .product-footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">🏭 Metal<span>Pro</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Bosh sahifa</a></li>
+            <li><a href="#about">Biz haqimizda</a></li>
+            <li><a href="#products">Mahsulotlar</a></li>
+            <li><a href="#services">Xizmatlar</a></li>
+            <li><a href="#contact">Aloqa</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <button class="btn-primary" style="display: none;" id="navBtn">Bog'lanish</button>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content fade-in-up">
+            <h1>Yetakchi Metall <span>Oldindan Sotish</span> Kampaniyasi</h1>
+            <p>Yuqori sifatli metall mahsulotlari va professional xizmatlar. Zamonaviy texnologiyalar va tajribali mutaxassislar bilan.</p>
+            <div class="search-box">
+                <input type="text" placeholder="Mahsulotlarni qidirish...">
+                <button class="btn-primary">🔍 Qidirish</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2>Sizning Biznesingiz uchun Eng Yaxshi Metall Yechimlari</h2>
+            <p>Biz o'n yillar davomida metall sanoatida tajribaga ega kompaniyamiz. Yuqori sifatli mahsulotlar va professional xizmatlar bilan mijozlarimizga xizmat qilmoqdamiz.</p>
+            <p>Zamonaviy texnologiyalar va tajribali mutaxassislar jamoasi bilan har qanday murakkablikdagi loyihalarni amalga oshiramiz.</p>
+            <div class="about-features">
+                <div class="about-feature">
+                    <span>✅</span>
+                    <div>
+                        <strong>ISO Sertifikati</strong>
+                        <p style="margin: 0; font-size: 0.9rem;">Xalqaro standartlar</p>
+                    </div>
+                </div>
+                <div class="about-feature">
+                    <span>🚚</span>
+                    <div>
+                        <strong>Tez Yetkazib Berish</strong>
+                        <p style="margin: 0; font-size: 0.9rem;">24 soat ichida</p>
+                    </div>
+                </div>
+                <div class="about-feature">
+                    <span>💎</span>
+                    <div>
+                        <strong>Yuqori Sifat</strong>
+                        <p style="margin: 0; font-size: 0.9rem;">100% kafolat</p>
+                    </div>
+                </div>
+                <div class="about-feature">
+                    <span>👥</span>
+                    <div>
+                        <strong>Professional Jamoa</strong>
+                        <p style="margin: 0; font-size: 0.9rem;">Tajribali mutaxassislar</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-primary">📄 Batafsil Ma'lumot</button>
+        </div>
+        <div class="about-image"></div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <h3>📦 Keng Assortiment</h3>
+            <p>Har xil turdagi metall mahsulotlari va materiallar. 150+ dan ortiq mahsulot turlari</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ Tez Yetkazib Berish</h3>
+            <p>O'z vaqtida va ishonchli yetkazib berish xizmati. Shahar bo'ylab 24 soat ichida</p>
+        </div>
+        <div class="feature-card">
+            <h3>💰 Raqobatbardosh Narxlar</h3>
+            <p>Eng yaxshi narxlar va maxsus takliflar. Ulgurji mijozlar uchun chegirmalar</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛠️ Professional Yordam</h3>
+            <p>Tajribali mutaxassislardan maslahat. 24/7 texnik qo'llab-quvvatlash</p>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <h2>15+</h2>
+            <p>Yillik Tajriba</p>
+        </div>
+        <div class="stat-item">
+            <h2>2000+</h2>
+            <p>Mamnun Mijozlar</p>
+        </div>
+        <div class="stat-item">
+            <h2>98%</h2>
+            <p>Sifat Ko'rsatkichi</p>
+        </div>
+        <div class="stat-item">
+            <h2>150+</h2>
+            <p>Mahsulot Turlari</p>
+        </div>
+    </section>
+
+    <h2 class="section-title" id="products">Bizning <span>Metall Mahsulotlarimiz</span></h2>
+    <section class="products">
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">🔥 Top Mahsulot</span>
+            </div>
+            <div class="product-content">
+                <h3>Po'lat Armatura</h3>
+                <p>Qurilish uchun yuqori sifatli po'lat armatura. Har xil o'lchamlarda mavjud. GOST standartlariga muvofiq.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">⭐ Mashhur</span>
+            </div>
+            <div class="product-content">
+                <h3>Metall Balka</h3>
+                <p>Mustahkam va ishonchli metall balka mahsulotlari katta loyihalar uchun. I va H shaklidagi balkalar.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">✨ Yangi</span>
+            </div>
+            <div class="product-content">
+                <h3>Profil Truba</h3>
+                <p>Turli o'lchamdagi profil trubalar konstruksiya ishlari uchun. Kvadrat va to'rtburchak shakllarda.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">💎 Sifatli</span>
+            </div>
+            <div class="product-content">
+                <h3>Metall List</h3>
+                <p>Har xil qalinlikdagi metall listlar sanoat ehtiyojlari uchun. 1mm dan 50mm gacha qalinlikda.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">🔗 Mustahkam</span>
+            </div>
+            <div class="product-content">
+                <h3>Zanjir va Arqon</h3>
+                <p>Mustahkam metall zanjir va arqonlar og'ir yuklar uchun. Yuqori yukka chidamlilik.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-badge">🌟 Chegirma</span>
+            </div>
+            <div class="product-content">
+                <h3>Metall Mesh</h3>
+                <p>Turli xildagi metall to'rlar va meshlar himoya va bezash uchun. Har xil ko'zli meshlar.</p>
+                <div class="product-footer">
+                    <span class="product-price">Narx so'rang</span>
+                    <button class="product-btn">🛒 Buyurtma</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title" id="services">Bizning <span>Xizmatlarimiz</span></h2>
+    <section class="services">
+        <div class="service-card">
+            <div class="service-icon">📐</div>
+            <h3>Loyihalash va Maslahat</h3>
+            <ul>
+                <li>Texnik maslahat berish</li>
+                <li>Loyiha hujjatlari tayyorlash</li>
+                <li>Material tanlashda yordam</li>
+                <li>Xarajatlarni hisoblash</li>
+                <li>3D modellashtirish</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔧</div>
+            <h3>Ishlab Chiqarish</h3>
+            <ul>
+                <li>Buyurtma asosida ishlab chiqarish</li>
+                <li>Metall kesish va qayta ishlash</li>
+                <li>Payvandlash xizmatlari</li>
+                <li>Sirt ishlov berish</li>
+                <li>Sifat nazorati</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🚚</div>
+            <h3>Yetkazib Berish va O'rnatish</h3>
+            <ul>
+                <li>Shahar bo'ylab yetkazib berish</li>
+                <li>Mintaqalarga jo'natish</li>
+                <li>Professional o'rnatish</li>
+                <li>Texnik qo'llab-quvvatlash</li>
+                <li>Kafolat xizmati</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Bugunoq Biz Bilan Bog'laning!</h2>
+            <p>Professional maslahat va maxsus takliflar olish uchun. Birinchi buyurtmaga 10% chegirma!</p>
+            <div class="cta-buttons">
+                <button class="btn-white">📞 Buyurtma Berish</button>
+                <button class="btn-outline">📄 Katalog Yuklab Olish</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-form">
+            <h2>📧 Aloqa Shakli</h2>
+            <form>
+                <div class="form-group">
+                    <label>Ismingiz</label>
+                    <input type="text" placeholder="Ismingizni kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Email manzilingiz" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="tel" placeholder="+998 (__) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label>Xabaringiz</label>
+                    <textarea rows="4" placeholder="Sizning xabaringiz..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">📨 Xabar Yuborish</button>
+            </form>
+        </div>
+        <div class="contact-info">
+            <h2>📍 Biz Bilan Bog'laning</h2>
+            <p>Har qanday savolingiz bo'lsa, biz bilan bog'laning. Biz doim sizga yordam berishga tayyormiz! Mutaxassislarimiz 24/7 aloqada.</p>
+            <div class="info-item">
+                <strong>📍 Manzil</strong>
+                Toshkent shahri, Amir Temur ko'chasi, 108-bino<br>
+                Chilonzor tumani, Toshkent, O'zbekiston
+            </div>
+            <div class="info-item">
+                <strong>📞 Telefon Raqamlari</strong>
+                +998 71 123-45-67 (Bosh ofis)<br>
+                +998 90 123-45-67 (Sotuvlar bo'limi)
+            </div>
+            <div class="info-item">
+                <strong>✉️ Email Manzillar</strong>
+                info@metalpro.uz<br>
+                sales@metalpro.uz
+            </div>
+            <div class="info-item">
+                <strong>🕐 Ish Vaqti</strong>
+                Dushanba - Shanba: 9:00 - 18:00<br>
+                Yakshanba: Dam olish kuni
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🏭 MetalPro</h3>
+                <p>Yetakchi metall mahsulotlari va xizmatlar taqdimotchisi. Sifat va ishonchlilik bizning ustuvorligimiz.</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook">📘</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Telegram">✈️</a>
+                    <a href="#" title="YouTube">▶️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Tezkor Havolalar</h3>
+                <ul>
+                    <li><a href="#home">Bosh sahifa</a></li>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#products">Mahsulotlar</a></li>
+                    <li><a href="#services">Xizmatlar</a></li>
+                    <li><a href="#contact">Aloqa</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Xizmatlar</h3>
+                <ul>
+                    <li><a href="#">Loyihalash</a></li>
+                    <li><a href="#">Ishlab chiqarish</a></li>
+                    <li><a href="#">Yetkazib berish</a></li>
+                    <li><a href="#">O'rnatish</a></li>
+                    <li><a href="#">Texnik yordam</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Qo'shimcha</h3>
+                <ul>
+                    <li><a href="#">Yangiliklar</a></li>
+                    <li><a href="#">Narxlar</a></li>
+                    <li><a href="#">Sertifikatlar</a></li>
+                    <li><a href="#">Ommaviy oferta</a></li>
+                    <li><a href="#">Maxfiylik siyosati</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MetalPro. Barcha huquqlar himoyalangan. | Ishlab chiqildi: O'zbekiston</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .product-card, .service-card, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Show nav button on mobile
+        if (window.innerWidth > 768) {
+            document.getElementById('navBtn').style.display = 'block';
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('navBtn').style.display = 'block';
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            } else {
+                document.getElementById('navBtn').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
